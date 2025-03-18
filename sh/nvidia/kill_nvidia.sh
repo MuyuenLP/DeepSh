@@ -21,7 +21,7 @@ if [ "$GPU_ID" = "all" ]; then
 elif echo "$GPU_ID" | grep -Eq '^\[[0-9]+(,[0-9]+)*\]$'; then
     GPU_ID_CLEANED=$(echo "$GPU_ID" | tr -d '[]' | tr ',' ' ')
     for GPU in $GPU_ID_CLEANED; do
-        PIDS=$(fuser -v /dev/nvidia* 2>/dev/null | awk '{for (i=2; i<=NF; i++) print $i}' | sort -u)
+        PIDS=$(fuser -v /dev/nvidia$GPU 2>/dev/null | sort -u)
         echo "Find PIDS on GPU$GPU"
         echo $PIDS
     done
